@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Google Picker Example</title>
+
+    <script src="https://accounts.google.com/gsi/client"></script>
+
+</head>
+<body>
+
+<div>
+    <h1>Google Oauth Example</h1>
+</div>
+
+<h1>Google Identity Services Authorization Token model</h1>
+
+<button id="getTokenButtton">Get access token</button>
+<br><br><button id="revokeTokenButton">Revoke token</button>
+<br><br><button id="getUserProfileButton">Get user provile</button>
+<br><br><button id="getDriveInfoButton">Get drive info</button>
+
+
+<script type="module">
+
+    initClient()
+
+    var client
+    var access_token
+
+    function initClient() {
+        client = google.accounts.oauth2.initTokenClient(
+            {
+                client_id: '661332306814-fmasnut050v7qds33tsa2rtvd5tc06sl.apps.googleusercontent.com',
+                scope: 'https://www.googleapis.com/auth/userinfo.profile',
+                callback: (tokenResponse) => {
+                    access_token = tokenResponse.access_token
+                    console.log(`access_token = ${access_token}`)
+                }
+            }
+        )
+    }
+
+    function getToken() {
+        client.requestAccessToken()
+    }
+
+    function revokeToken() {
+        google.accounts.oauth2.revoke(access_token, () => {
+            console.log('access token revoked')
+        })
+    }
+
+    async function getUserProfile() {
+        const endPoint = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json"
+        const response = await fetch(endPoint, {
+            headers: {
+                'Authorization': `Bearer ${access_token}`
+            }
+
+        })
+        let json = await response.json()
+        console.log(json)
+    }
+
+    async function getDriveInfo() {
+        let endPoint = "https://www.googleapis.com/drive/v3/about?fields=*"
+        const response = await fetch(endPoint, {
+            headers: {
+                'Authorization': `Bearer ${access_token}`
+            }
+
+        })
+        let json = await response.json()
+        console.log(json)
+    }
+
+
+    document.getElementById("getTokenButtton").addEventListener("click", getToken)
+    document.getElementById("revokeTokenButton").addEventListener("click", revokeToken)
+    document.getElementById("getUserProfileButton").addEventListener("click", getUserProfile)
+    document.getElementById("getDriveInfoButton").addEventListener("click", getDriveInfo)
+
+</script>
+
+
+</body>
+
+</html>
