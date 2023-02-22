@@ -1,5 +1,9 @@
 {
   "name": "google-utils",
   "version": "1.0.0",
-
+  "author": "Jim Robinson",
+  "license": "MIT",
+  "files": [
+    "src/**"
+  ]
 }
