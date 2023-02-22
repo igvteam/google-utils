@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Google Picker Example</title>
+
+    <script src="https://accounts.google.com/gsi/client"></script>
+
+</head>
+<body>
+
+<div>
+    <h1>Google Oauth Example</h1>
+</div>
+
+<h1>Google Drive</h1>
+
+<br><br>
+<button id="driveInfoButton">Get drive info</button>
+<br><br>
+<button id="driveFileInfoButton">Get file info</button>
+<br><br>
+
+<script type="module">
+
+    import * as GoogleAuth from '../src/google/googleAuth.js'
+    import * as GoogleDrive from '../src/google/googleDrive.js'
+    //import oauthConfig from './oauthConfig.js'
+    import oauthConfig from './oauthConfig-private.js'
+
+    GoogleAuth.init(oauthConfig)
+
+
+    document.getElementById("driveInfoButton").addEventListener("click", async () => {
+        const json = await GoogleDrive.getDriveInfo()
+        console.log(json)
+    })
+
+    document.getElementById("driveFileInfoButton").addEventListener("click", async () => {
+        const json = await GoogleDrive.getDriveFileInfo('https://drive.google.com/open?id=14dGM9acAByia5JCIQBBq34RMGj-SL6HF&authuser=jrobinso%40cloud.ucsd.edu&usp=drive_fs')
+        console.log(json)
+    })
+
+
+
+</script>
+
+
+</body>
+
+</html>
