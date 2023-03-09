@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "author": "Jim Robinson",
   "license": "MIT",
+  "type": "module",
   "files": [
     "src/**"
-  ]
+  ],
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  }
 }
