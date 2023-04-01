@@ -152,7 +152,7 @@ function signInListen(fn) {
 
 function getScopeForURL(url) {
     if (isGoogleDriveURL(url)) {
-        return "https://www.googleapis.com/auth/drive.file"
+        return "https://www.googleapis.com/auth/drive.readonly"
     } else if (isGoogleStorageURL(url)) {
         return "https://www.googleapis.com/auth/devstorage.read_only"
     } else {

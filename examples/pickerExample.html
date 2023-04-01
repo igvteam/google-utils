@@ -45,6 +45,17 @@
         console.log(`dowloadURL: ${downloadURL}`)
         console.log(`driveInfo: ${JSON.stringify(driveInfo)}`)
 
+        const scope = GoogleAuth.getScopeForURL(downloadURL)
+        console.log(`score ${scope}`)
+        const token = await GoogleAuth.getAccessToken(scope)
+        const response = await fetch(downloadURL, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        //const json = await GoogleDrive.getDriveFileInfo('https://drive.google.com/open?id=14dGM9acAByia5JCIQBBq34RMGj-SL6HF')
+        console.log(response)
+
     }
 
 

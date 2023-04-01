@@ -20,6 +20,9 @@
 <br><br>
 <button id="driveFileInfoButton">Get file info</button>
 <br><br>
+<button id="driveDownloadButton">DownloadFile</button>
+<br><br>
+
 
 <script type="module">
 
@@ -37,8 +40,21 @@
     })
 
     document.getElementById("driveFileInfoButton").addEventListener("click", async () => {
-        const json = await GoogleDrive.getDriveFileInfo('https://drive.google.com/open?id=14dGM9acAByia5JCIQBBq34RMGj-SL6HF&authuser=jrobinso%40cloud.ucsd.edu&usp=drive_fs')
+        const json = await GoogleDrive.getDriveFileInfo('https://drive.google.com/open?id=14dGM9acAByia5JCIQBBq34RMGj-SL6HF')
         console.log(json)
+    })
+
+    document.getElementById("driveDownloadButton").addEventListener("click", async () => {
+        const downloadURL = GoogleDrive.getDriveDownloadURL("https://drive.google.com/open?id=14dGM9acAByia5JCIQBBq34RMGj-SL6HF")
+        const scope = GoogleAuth.getScopeForURL(downloadURL)
+        const token = await GoogleAuth.getAccessToken(scope)
+        const response = await fetch(downloadURL, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
+        //const json = await GoogleDrive.getDriveFileInfo('https://drive.google.com/open?id=14dGM9acAByia5JCIQBBq34RMGj-SL6HF')
+        console.log(response)
     })
 
 
