@@ -14,6 +14,9 @@
 <div>
     <h1>Google Picker Example</h1>
     <button id="google-picker" type="button">Google Picker</button>
+    <br><br>
+    <button id="getUserProfileButton">Get user profile</button>
+    <br><br>
 </div>
 <p>
     View javascript console for button responses.
@@ -34,6 +37,12 @@
     document.getElementById("google-picker").onclick = () => {
         GooglePicker.createDropdownButtonPicker(true, handlePick)
     }
+
+    document.getElementById("getUserProfileButton").addEventListener("click", async () => {
+        const userProfile = await GoogleAuth.getCurrentUserProfile()
+        console.log(userProfile)
+    })
+
 
     async function handlePick(responses) {
 
